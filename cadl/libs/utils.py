@@ -41,7 +41,7 @@ def download(path):
         if count % 20 == 0:
             print('Downloaded %02.02f/%02.02f MB' % (
                 count * block_size / 1024.0 / 1024.0,
-                total_size / 1024.0 / 1024.0))
+                total_size / 1024.0 / 1024.0), end='\r')
 
     filepath, _ = urllib.request.urlretrieve(
         path, filename=fname, reporthook=progress)
@@ -317,7 +317,7 @@ def get_celeb_files(dst='img_align_celeba', max_images=100):
             url = 'https://s3.amazonaws.com/cadl/celeb-align/' + f
 
             # We'll print this out to the console so we can see how far we've gone
-            #print(url, end='\r')
+            print(url, end='\r')
 
             # And now download the url to a location inside our new directory
             urllib.request.urlretrieve(url, os.path.join(dst, f))
