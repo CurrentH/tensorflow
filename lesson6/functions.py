@@ -48,7 +48,7 @@ def choose_random_centroids(samples, n_clusters):
 def assign_to_nearest(samples, centroids):
 	#	Finds the nearest centroid for each sample
 	expanded_vectors = tf.expand_dims(samples, 0)
-	expanded_centroids = tf.expamd_dims(centroids, 1)
+	expanded_centroids = tf.expand_dims(centroids, 1)
 	distances = tf.reduce_sum( tf.square( tf.sub( expanded_vectors, expanded_centroids ) ), 2 )
 	mins = tf.argmin(distances, 0)
 	nearest_indices = mins
@@ -56,7 +56,7 @@ def assign_to_nearest(samples, centroids):
 
 def update_centroids(samples, nearest_indices, n_clusters):
 	#	Updates the centroid to be the mean of all samples associated with it.
-	nearest_indices = td,to_int32( nearest_indices )
+	nearest_indices = tf.to_int32( nearest_indices )
 	partitions = tf.dynamic_partition( samples, nearest_indices, n_clusters )
 	new_centroids = tf.concat( 0, [tf.expand_dims(tf.reduce_mean(partition, 0), 0) for partition in partitions] )
 	return new_centroids
